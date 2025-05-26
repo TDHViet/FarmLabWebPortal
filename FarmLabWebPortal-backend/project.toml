@@ -1,0 +1,36 @@
+[project]
+schema-version = "0.2"
+id = "io.buildpacks.FarmLabWebPortal-backend"
+name = "FarmLab WebPortal"
+version = "0.0.0"
+
+# Can be removed once:
+# This is merged https://github.com/paketo-buildpacks/poetry-install/pull/424 or
+# this is resolved https://github.com/paketo-buildpacks/poetry-install/pull/182
+# Devops updated buildpack and updated the way poetry projects are build(without
+# requirements.txt file creation). When this file present buildpack ignores
+# pyproject.toml
+[[build.env]]
+name = "BP_CPYTHON_VERSION"
+value = "3.12.*"
+
+[build]
+exclude = [
+    ".venv",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".git",
+    ".github",
+    ".gitlint",
+    ".gitignore",
+    ".pre-commit-config.yaml",
+    ".env.local",
+    "compose.yaml",
+    ".vscode",
+    ".cruft.json",
+    "/tasks.py",
+    "*.sql",
+    "README.md",
+    "docs/*",
+    "!docs/CHANGELOG.md",
+]

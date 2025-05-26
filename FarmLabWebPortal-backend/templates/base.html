@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% load static i18n %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{app_label}}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  </head>
+  <body>
+    <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          {% if show_debug_tools %}
+            <div class="navbar-item">
+              <span class="tag is-info">App Version {{ version }}</span>
+              <span class="tag is-info">Python {{ python_version }}</span>
+              <span class="tag is-info">Django {{ django_version }}</span>
+              <span class="tag is-primary">{{ env|capfirst }} Env</span>
+              <a href="{{ argo_cd_url }}applications/{{ argo_cd_app }}">
+                <figure class="tag is-dark">
+                  <img src="{{ argo_cd_url }}api/badge?name={{ argo_cd_app }}&revision=true">
+                </figure>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <aside
+      style="position: fixed; top: 7%;"
+      class="menu ml-2 has-text-white is-size-6 is-size-5-desktop"
+    >
+      <p class="is-size-5 is-size-4-desktop">General</p>
+      <ul class="menu-list">
+        <li class="p-1">
+          <a
+            class="has-background-dark has-text-white has-text-centered"
+            href="{{ app_url }}"
+          >
+            {{ app_label }}
+          </a>
+        </li>
+        {% if show_debug_tools %}
+          <li class="p-1">
+            <a
+              class="has-background-dark has-text-white has-text-centered"
+              href="{% url 'admin:index' %}"
+            >
+              <span>Django Admin</span>
+              <span class="is-size-7 is-display-block mt-1">
+                {{ request.user.email }}
+              </span>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+      {% if show_debug_tools %}
+        <p class="mt-4 is-size-5 is-size-4-desktop">Docs</p>
+        <ul class="menu-list">
+          {% if changelog.redoc_api_ui %}
+            <li class="p-1">
+              <a
+                class="has-background-dark has-text-white has-text-centered"
+                href="{{ changelog.redoc_api_ui }}"
+              >
+                API Docs
+              </a>
+            </li>
+          {% endif %}
+          {% if changelog.swagger_api_ui %}
+            <li class="p-1">
+              <a
+                class="has-background-dark has-text-white has-text-centered"
+                href="{{ changelog.swagger_api_ui }}"
+              >
+                swagger ui
+              </a>
+            </li>
+          {% endif %}
+      {% endif %}
+    </ul>
+    {% if email_ui_url or minio_url %}
+      <p class="mt-4 is-size-5 is-size-4-desktop">Tools</p>
+    {% endif %}
+    <ul class="menu-list py-1">
+      {% if email_ui_url %}
+        <li class="p-1">
+          <a
+            class="has-background-dark has-text-white has-text-centered"
+            href="{{ email_ui_url }}"
+          >
+            Mailpit
+          </a>
+        </li>
+      {% endif %}
+      {% if minio_url %}
+        <li class="p-1">
+          <a
+            class="has-background-dark has-text-white has-text-centered"
+            href="{{ minio_url }}"
+          >
+            Minio
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </aside>
+  <div
+    class="columns has-background-grey-dark is-centered pt-6 m-0"
+    style="min-height: 100vh;"
+  >
+    {% block content %}
+    {% endblock content %}
+  </div>
+  {% block extra_js %}
+  {% endblock extra_js %}
+</body>
+</html>
