@@ -1,2 +1,6 @@
 # FarmLabWebPortal
 This is my capstone project in Ho Chi Minh University of Technology - VNUHCM. 
+# Which I gained after done project
+During my time working on the FarmLab Web Portal project, I gained valuable hands-on experience in several key areas of software engineering. I participated in setting up the CI/CD pipeline, containerizing the application using Docker, and deploying a virtual server with OpenVPN to support the infrastructure of the Web Portal system. On the backend, I developed RESTful APIs using Django, while also contributing to the frontend interface using Node.js and modern JavaScript libraries.
+# About Project
+FarmLab Web Portal is a centralized system designed to manage model smart farms. It collects environmental data from sensors and records human farming activities via cameras, combining both to create a digital cultivation log. I was also involved in the Cultivation Logger module, where we applied machine learning techniques to solve the pose detection problem. Although the module is still in development, we achieved initial success in detecting various farming activities such as soil tilling, watering, fertilizing, weeding, planting, pruning, and inspection, along with their corresponding timestamps.
